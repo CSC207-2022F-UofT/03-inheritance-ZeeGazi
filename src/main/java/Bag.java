@@ -14,6 +14,10 @@ public abstract class Bag {
      *       - an array of Strings named contents
      */
 
+    private String color;
+    private int numberOfContents = 0;
+    private int capacity;
+    private String[] contents = {};
 
 
 
@@ -26,6 +30,10 @@ public abstract class Bag {
      * be empty (e.g. numberOfContents is 0 and an empty String array for
      * its contents.)
      */
+    public Bag(String color, int capacity) {
+        this.color = color;
+        this.capacity = capacity;
+    }
 
 
 
@@ -38,13 +46,26 @@ public abstract class Bag {
      *           - getCapacity
      */
 
+    public String getColor() {
+        return this.color;
+    }
 
+    public int getNumberOfContents() {
+        return this.numberOfContents;
+    }
 
+    public int getCapacity() {
+        return this.capacity;
+    }
 
     /*
      * TODO: Create a setter function called setColor which sets the
      *       color of this bag to the given color.
      */
+
+    public void setColor(String color){
+        this.color = color;
+    }
 
 
 
@@ -61,7 +82,20 @@ public abstract class Bag {
      *       and false otherwise.
      */
 
-
+    public boolean addItem(String item){
+        if (this.numberOfContents < this.capacity){
+            String[] new_bag = new String[this.numberOfContents + 1];
+            for (int i = 0; i < this.numberOfContents; i++){
+                new_bag[i] = this.contents[i];
+            }
+            new_bag[this.numberOfContents] = item;
+            this.contents = new_bag;
+            this.numberOfContents++;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
 
@@ -75,7 +109,21 @@ public abstract class Bag {
      *
      * @return
      */
-
+    public String popItem(){
+        if (this.numberOfContents == 0){
+            return null;
+        } else {
+            String last_item;
+            last_item = this.contents[this.numberOfContents - 1];
+            String[] new_bag = new String[this.numberOfContents - 1];
+            for (int i = 0; i < this.numberOfContents - 1; i++){
+                new_bag[i] = this.contents[i];
+            }
+            this.contents = new_bag;
+            this.numberOfContents --;
+            return last_item;
+        }
+    }
 
 
 
@@ -87,6 +135,7 @@ public abstract class Bag {
      */
     public void increaseCapacity(int n) {
         // TODO: Implement this method.
+        this.capacity = this.capacity + n;
 
     }
 
